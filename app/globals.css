@@ -1,0 +1,341 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+@theme {
+  /* Ultra-Premium Color Palette */
+  --color-bg:           #000000;
+  --color-surface:      #0a0a0a;
+  --color-surface-high: #141414;
+  --color-border:       rgba(255, 255, 255, 0.08);
+  --color-text:         #ffffff;
+  --color-muted:        #888888;
+  --color-accent:       #f97316; /* Signal Orange - high contrast, high energy */
+  --color-accent-hover: #ea580c;
+  --color-success:      #10b981;
+
+  /* Premium Typography */
+  --font-sans:  "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, monospace;
+
+  /* Architectural Radii */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  16px;
+  --radius-xl:  24px;
+}
+
+/* ============================================================
+   GLOBAL BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+/* ============================================================
+   NOISE TEXTURE OVERLAY (non-AI premium feel)
+   ============================================================ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
+
+/* ============================================================
+   TYPOGRAPHY SCALE
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+h1 { font-size: clamp(3rem, 7vw, 6rem); letter-spacing: -0.04em; font-weight: 800; line-height: 1.05; }
+h2 { font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.03em; font-weight: 700; line-height: 1.1; }
+h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); letter-spacing: -0.01em; font-weight: 600; }
+
+p {
+  color: var(--color-muted);
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+.container-site {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-site {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.section-pad {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .section-pad {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-muted) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.accent-text {
+  color: var(--color-accent);
+}
+
+/* Subtle grid pattern background for sections */
+.bg-grid {
+  background-image:
+    linear-gradient(var(--color-surface-high) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-surface-high) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: center center;
+}
+
+/* ============================================================
+   ANIMATED LOGO MARQUEE
+   ============================================================ */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 28s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ============================================================
+   FOCUS STYLES (Accessibility)
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   STAT COUNTER GRADIENT CARDS
+   ============================================================ */
+.stat-card {
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-high) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.stat-card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-4px);
+}
+
+/* ============================================================
+   PREMIUM GLASS SERVICE CARD
+   ============================================================ */
+.service-card {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: default;
+  z-index: 1;
+}
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(249,115,22,0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.service-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.8);
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+/* ============================================================
+   TESTIMONIAL CARD
+   ============================================================ */
+.testimonial-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: border-color 0.3s ease;
+}
+
+.testimonial-card:hover {
+  border-color: var(--color-accent);
+}
+
+/* ============================================================
+   BLOG CARD
+   ============================================================ */
+.blog-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.blog-card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-4px);
+}
+
+/* ============================================================
+   PROCESS STEP
+   ============================================================ */
+.process-connector {
+  position: absolute;
+  top: 2rem;
+  left: calc(50% + 2rem);
+  right: calc(-50% + 2rem);
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-border) 100%);
+}
+
+/* ============================================================
+   BUTTON VARIANTS (MILLION DOLLAR)
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1;
+  border-radius: 9999px;
+  padding: 1rem 2rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  white-space: nowrap;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover { transform: scale(1.02); }
+.btn:active { transform: scale(0.98); }
+
+.btn-primary {
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: 0 0 0 0 rgba(255,255,255,0.4);
+}
+.btn-primary:hover {
+  background-color: #e5e5e5;
+  box-shadow: 0 10px 30px -10px rgba(255,255,255,0.4);
+}
+
+.btn-secondary {
+  background-color: rgba(255,255,255,0.03);
+  color: var(--color-text);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+}
+.btn-secondary:hover {
+  background-color: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: #ffffff;
+  padding: 0.5rem 0;
+  border-radius: 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid transparent;
+}
+.btn-ghost:hover { 
+  transform: translateX(4px); 
+  color: var(--color-accent);
+}
