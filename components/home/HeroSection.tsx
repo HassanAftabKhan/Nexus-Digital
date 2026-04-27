@@ -150,10 +150,10 @@ export default function HeroSection() {
             transition: "all 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.3s",
           }}
         >
-          <Button href="#contact" variant="primary" showArrow>
+          <Button href="/contact" variant="primary" showArrow>
             Get a Free Audit
           </Button>
-          <Button href="#work" variant="secondary">
+          <Button href="/work" variant="secondary">
             View Case Studies
           </Button>
         </div>
