@@ -1,3 +1,5 @@
+"use client";
+
 import { CLIENTS } from "@/lib/constants";
 
 export default function LogoBar() {

@@ -1,3 +1,5 @@
+"use client";
+
 import Button from "@/components/ui/Button";
 import { ArrowRight, Mail, Phone } from "lucide-react";
 
