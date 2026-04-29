@@ -1,51 +1,61 @@
 import Button from "@/components/ui/Button";
+import { ArrowRight, Mail, Phone } from "lucide-react";
 
 export default function CTABanner() {
   return (
-    <section
-      id="contact"
-      aria-labelledby="cta-heading"
-      style={{
-        position:"relative",
-        overflow:"hidden",
-        padding:"7rem 0",
-        background:"linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #0EA5E9 100%)",
-      }}
-    >
-      {/* Decorative circles */}
-      <div aria-hidden="true" style={{ position:"absolute", top:"-30%", right:"-5%", width:"500px", height:"500px", borderRadius:"50%", border:"1px solid rgba(255,255,255,0.1)", pointerEvents:"none" }} />
-      <div aria-hidden="true" style={{ position:"absolute", bottom:"-20%", left:"-5%", width:"380px", height:"380px", borderRadius:"50%", border:"1px solid rgba(255,255,255,0.08)", pointerEvents:"none" }} />
-      <div aria-hidden="true" style={{ position:"absolute", top:"20%", left:"15%", width:"200px", height:"200px", borderRadius:"50%", background:"rgba(255,255,255,0.04)", pointerEvents:"none" }} />
+    <section id="contact" aria-labelledby="cta-heading" className="section-dark" style={{ padding: "7rem 0" }}>
+      <div className="container-site">
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "4rem", alignItems: "center" }} className="cta-grid">
+          {/* Left */}
+          <div>
+            <span style={{ display: "inline-block", fontSize: "0.6875rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-blue-mid)", marginBottom: "1rem" }}>
+              Free Audit — No Obligation
+            </span>
+            <h2 id="cta-heading" style={{ color: "#fff", marginBottom: "1.25rem" }}>
+              Ready to see what&apos;s holding your brand back?
+            </h2>
+            <p style={{ color: "#94A3B8", fontSize: "1.05rem", lineHeight: 1.75, marginBottom: "2.5rem", maxWidth: "520px" }}>
+              Book a free 30-minute strategy session. We&apos;ll audit your current digital presence and hand you a clear roadmap — whether you work with us or not.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Button href="/contact" variant="primary">Book Free Audit <ArrowRight size={14} /></Button>
+              <a href="/work" className="btn btn-outline-white">View our work</a>
+            </div>
+          </div>
 
-      <div className="container-site" style={{ position:"relative", zIndex:1, display:"flex", flexDirection:"column", alignItems:"center", textAlign:"center", gap:"1.75rem" }}>
-        <div style={{ padding:"0.375rem 1rem", borderRadius:"9999px", background:"rgba(255,255,255,0.15)", border:"1px solid rgba(255,255,255,0.25)", fontSize:"0.75rem", fontWeight:700, color:"#fff", letterSpacing:"0.06em", textTransform:"uppercase" }}>
-          Limited spots available this month
-        </div>
-
-        <h2 id="cta-heading" style={{ maxWidth:"700px", color:"#fff", fontSize:"clamp(2.2rem,5vw,4rem)", lineHeight:1.05 }}>
-          Ready to make your competitors <br />
-          <span style={{ opacity:0.85 }}>nervous?</span> 🚀
-        </h2>
-
-        <p style={{ maxWidth:"500px", color:"rgba(255,255,255,0.8)", fontSize:"1.1rem", lineHeight:1.75 }}>
-          Book your free 30-minute strategy call today. We&apos;ll analyse your brand, expose your growth gaps, and show you exactly how we&apos;ll fix them — no fluff, no obligation.
-        </p>
-
-        <div className="flex flex-wrap gap-4 justify-center" style={{ marginTop:"0.5rem" }}>
-          <a href="/contact" className="btn" style={{ background:"#fff", color:"var(--color-accent)", boxShadow:"0 8px 30px rgba(0,0,0,0.2)", fontWeight:800 }}>
-            Book My Free Strategy Call →
-          </a>
-          <a href="/work" className="btn" style={{ background:"rgba(255,255,255,0.12)", color:"#fff", border:"1.5px solid rgba(255,255,255,0.3)" }}>
-            See Our Results
-          </a>
-        </div>
-
-        <div style={{ display:"flex", flexWrap:"wrap", gap:"2rem", justifyContent:"center", marginTop:"1.5rem" }}>
-          {["✓ No commitment required", "✓ 30-minute call", "✓ Response in 2 hours", "✓ Keep all our work"].map((t) => (
-            <span key={t} style={{ fontSize:"0.75rem", color:"rgba(255,255,255,0.7)", fontWeight:500 }}>{t}</span>
-          ))}
+          {/* Right — contact info card */}
+          <div style={{ backgroundColor: "var(--color-ink-surface)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "var(--radius-lg)", padding: "2.5rem" }}>
+            <p style={{ fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: 700, color: "#fff", marginBottom: "2rem" }}>Prefer to reach out directly?</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", marginBottom: "2rem" }}>
+              <a href="mailto:hello@nexusdigital.agency" style={{ display: "flex", alignItems: "center", gap: "0.875rem", fontSize: "0.9375rem", color: "#94A3B8", transition: "color 0.2s" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#94A3B8")}
+              >
+                <div style={{ width: "36px", height: "36px", borderRadius: "var(--radius-sm)", backgroundColor: "rgba(37,99,235,0.2)", border: "1px solid rgba(37,99,235,0.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Mail size={16} style={{ color: "var(--color-blue-mid)" }} />
+                </div>
+                hello@nexusdigital.agency
+              </a>
+              <a href="tel:+15550000000" style={{ display: "flex", alignItems: "center", gap: "0.875rem", fontSize: "0.9375rem", color: "#94A3B8", transition: "color 0.2s" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#94A3B8")}
+              >
+                <div style={{ width: "36px", height: "36px", borderRadius: "var(--radius-sm)", backgroundColor: "rgba(37,99,235,0.2)", border: "1px solid rgba(37,99,235,0.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Phone size={16} style={{ color: "var(--color-blue-mid)" }} />
+                </div>
+                +1 (555) 000-0000
+              </a>
+            </div>
+            <div style={{ paddingTop: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+              <p style={{ fontSize: "0.8125rem", color: "#64748B", marginBottom: "0.5rem" }}>Average response time</p>
+              <p style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 700, color: "#fff" }}>Under 2 hours</p>
+            </div>
+          </div>
         </div>
       </div>
+      <style>{`
+        @media(min-width:900px) { .cta-grid { grid-template-columns: 1.2fr 1fr !important; } }
+      `}</style>
     </section>
   );
 }

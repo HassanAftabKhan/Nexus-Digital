@@ -1,70 +1,48 @@
 @import "tailwindcss";
 
 /* ============================================================
-   NEXUS DIGITAL — VIBRANT LIGHT DESIGN SYSTEM v4
-   Rich, colorful, premium: multi-toned light theme
+   NEXUS DIGITAL — CLEAN EDITORIAL DESIGN SYSTEM v5
+   Solid colors, no gradients, premium agency aesthetic
+   Inspired by: Stripe, Linear, Webflow
    ============================================================ */
 @theme {
-  /* Base */
-  --color-bg:            #FFFFFF;
-  --color-surface:       #FFFFFF;
-  --color-surface-alt:   #F8F7FF;
+  /* Core palette — solid, confident, no gradients */
+  --color-bg:           #FFFFFF;
+  --color-surface:      #F8FAFC;
+  --color-surface-alt:  #F1F5F9;
+  --color-ink:          #0F172A;
+  --color-ink-mid:      #334155;
+  --color-ink-light:    #64748B;
+  --color-ink-muted:    #94A3B8;
+  --color-border:       #E2E8F0;
+  --color-border-dark:  #CBD5E1;
 
-  /* Section tints */
-  --color-section-blue:    #EFF6FF;
-  --color-section-purple:  #F5F3FF;
-  --color-section-teal:    #F0FDFA;
-  --color-section-rose:    #FFF1F2;
-  --color-section-amber:   #FFFBEB;
+  /* Brand accent — single solid color, no gradient */
+  --color-blue:         #2563EB;
+  --color-blue-dark:    #1D4ED8;
+  --color-blue-light:   #EFF6FF;
+  --color-blue-mid:     #BFDBFE;
 
-  /* Borders */
-  --color-border:          rgba(0,0,0,0.06);
-  --color-border-strong:   rgba(0,0,0,0.12);
+  /* Section accent backgrounds */
+  --color-slate-bg:     #F8FAFC;
+  --color-ink-bg:       #0F172A;   /* dark stripe */
+  --color-ink-surface:  #1E293B;
 
-  /* Text */
-  --color-text:            #0D0D1A;
-  --color-text-secondary:  #64647A;
-  --color-text-muted:      #9898AE;
-
-  /* Primary accent — electric blue-violet */
-  --color-accent:          #4F46E5;
-  --color-accent-hover:    #4338CA;
-  --color-accent-end:      #7C3AED;
-  --color-accent-subtle:   rgba(79,70,229,0.08);
-  --color-accent-tint:     rgba(79,70,229,0.05);
-
-  /* Secondary accent — teal/cyan */
-  --color-teal:            #0EA5E9;
-  --color-teal-end:        #06B6D4;
-  --color-teal-subtle:     rgba(14,165,233,0.1);
-
-  /* Tertiary — coral/rose */
-  --color-rose:            #F43F5E;
-  --color-rose-subtle:     rgba(244,63,94,0.08);
-
-  /* Amber */
-  --color-amber:           #F59E0B;
-  --color-amber-subtle:    rgba(245,158,11,0.1);
-
-  /* Green */
-  --color-success:         #10B981;
-  --color-success-subtle:  rgba(16,185,129,0.1);
-
-  /* Dark stripe */
-  --color-dark-bg:         #0F0F1A;
-  --color-dark-text:       #EEEEF8;
-  --color-dark-muted:      #8888A4;
-  --color-dark-border:     rgba(255,255,255,0.07);
+  /* Status */
+  --color-green:        #059669;
+  --color-green-light:  #ECFDF5;
+  --color-amber:        #D97706;
+  --color-amber-light:  #FFFBEB;
+  --color-red:          #DC2626;
 
   /* Fonts */
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-sans:    "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
 
   /* Radii */
-  --radius-sm:   6px;
-  --radius-md:   14px;
-  --radius-lg:   22px;
-  --radius-xl:   34px;
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
 }
 
 /* ============================================================
@@ -80,305 +58,274 @@ html {
 
 body {
   background-color: var(--color-bg);
-  color: var(--color-text);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.65;
   overflow-x: hidden;
 }
 
-::selection { background-color: var(--color-accent); color:#fff; }
+::selection { background-color: var(--color-blue); color:#fff; }
 
-::-webkit-scrollbar { width:5px; }
-::-webkit-scrollbar-track { background:#fff; }
-::-webkit-scrollbar-thumb { background: #E0E0F0; border-radius:3px; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #fff; }
+::-webkit-scrollbar-thumb { background: var(--color-border-dark); border-radius: 2px; }
+
+:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 3px; }
 
 /* ============================================================
    TYPOGRAPHY
    ============================================================ */
-h1,h2,h3,h4,h5,h6 { color:var(--color-text); }
-
 h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem,7vw,5.75rem);
+  font-size: clamp(2.75rem, 6.5vw, 5.5rem);
   font-weight: 800;
   letter-spacing: -0.04em;
-  line-height: 1.02;
+  line-height: 1.04;
+  color: var(--color-ink);
 }
 
 h2 {
   font-family: var(--font-display);
-  font-size: clamp(2rem,4.5vw,3.5rem);
+  font-size: clamp(1.875rem, 4vw, 3rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 1.08;
+  line-height: 1.1;
+  color: var(--color-ink);
 }
 
 h3 {
   font-family: var(--font-display);
-  font-size: clamp(1rem,1.5vw,1.2rem);
+  font-size: 1.125rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.3;
+  color: var(--color-ink);
 }
 
-p { color:var(--color-text-secondary); line-height:1.72; }
-a { text-decoration:none; color:inherit; }
+p { color: var(--color-ink-light); line-height: 1.75; }
+a { text-decoration: none; color: inherit; }
 
 /* ============================================================
-   GRADIENT UTILITIES
+   HIGHLIGHT — underline accent, no gradient
    ============================================================ */
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-end) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-teal {
-  background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-teal-end) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.text-accent { color: var(--color-blue); }
+.text-accent-underline {
+  color: var(--color-blue);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 5px;
 }
 
 /* ============================================================
    LAYOUT
    ============================================================ */
 .container-site {
-  width:100%; max-width:1240px;
-  margin:0 auto;
-  padding:0 1.25rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
-@media(min-width:640px){ .container-site{ padding:0 2rem; } }
-@media(min-width:1024px){ .container-site{ padding:0 2.5rem; } }
+@media(min-width:640px)  { .container-site { padding: 0 2rem; } }
+@media(min-width:1024px) { .container-site { padding: 0 3rem; } }
 
-.section-pad { padding:5rem 0; }
-@media(min-width:768px){ .section-pad{ padding:7rem 0; } }
-@media(min-width:1024px){ .section-pad{ padding:9rem 0; } }
+.section-pad { padding: 5rem 0; }
+@media(min-width:768px)  { .section-pad { padding: 7rem 0; } }
+@media(min-width:1024px) { .section-pad { padding: 9rem 0; } }
 
-/* ============================================================
-   SECTION BACKGROUNDS — rich tinted variants
-   ============================================================ */
-.section-blue {
-  background: linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 100%);
-}
-.section-purple {
-  background: linear-gradient(160deg, #F5F3FF 0%, #FAF5FF 100%);
-}
-.section-teal {
-  background: linear-gradient(160deg, #F0FDFA 0%, #ECFEFF 100%);
-}
-.section-rose {
-  background: linear-gradient(160deg, #FFF1F2 0%, #FFF7ED 100%);
-}
-.section-dark {
-  background: var(--color-dark-bg);
-}
+/* Section backgrounds — solid, no gradients */
+.section-white  { background-color: var(--color-bg); }
+.section-slate  { background-color: var(--color-slate-bg); }
+.section-dark   { background-color: var(--color-ink-bg); }
 
 /* ============================================================
-   MARQUEE
+   DIVIDER
    ============================================================ */
-@keyframes marquee {
-  from{ transform:translateX(0); }
-  to  { transform:translateX(-50%); }
-}
-.marquee-track {
-  animation: marquee 28s linear infinite;
-  display:flex; width:max-content;
-}
-.marquee-track:hover{ animation-play-state:paused; }
+.divider { border: none; border-top: 1px solid var(--color-border); }
 
 /* ============================================================
-   FOCUS
+   EYEBROW / LABEL
    ============================================================ */
-:focus-visible { outline:2px solid var(--color-accent); outline-offset:3px; border-radius:4px; }
-
-/* ============================================================
-   STAT CARD
-   ============================================================ */
-.stat-card {
-  padding:1.75rem 0;
-  border-bottom:1px solid var(--color-border);
-}
-.stat-card:last-child{ border-bottom:none; }
-@media(min-width:768px){
-  .stat-card{
-    border-bottom:none;
-    border-right:1px solid var(--color-border);
-    padding:0 2rem;
-  }
-  .stat-card:first-child{ padding-left:0; }
-  .stat-card:last-child{ border-right:none; }
-}
-
-/* ============================================================
-   CARDS — colored left accent
-   ============================================================ */
-.card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
-}
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 48px -8px rgba(79,70,229,0.14);
-  border-color: rgba(79,70,229,0.2);
-}
-
-/* ============================================================
-   SERVICE CARD
-   ============================================================ */
-.service-card {
-  position:relative;
-  background:var(--color-surface);
-  border:1px solid var(--color-border);
-  border-radius:var(--radius-lg);
-  padding:2.25rem;
-  overflow:hidden;
-  box-shadow:0 2px 8px rgba(0,0,0,0.05);
-  transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
-}
-.service-card::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  opacity:0;
-  transition:opacity 0.4s;
-  border-radius:inherit;
-  background:radial-gradient(ellipse at top left, rgba(79,70,229,0.06) 0%, transparent 60%);
-  pointer-events:none;
-}
-.service-card:hover {
-  border-color:rgba(79,70,229,0.22);
-  transform:translateY(-6px);
-  box-shadow:0 20px 60px -12px rgba(79,70,229,0.16);
-}
-.service-card:hover::after{ opacity:1; }
-
-/* ============================================================
-   TESTIMONIAL CARD
-   ============================================================ */
-.testimonial-card {
-  background:var(--color-surface);
-  border:1px solid var(--color-border);
-  border-radius:var(--radius-lg);
-  padding:2.25rem;
-  display:flex; flex-direction:column;
-  box-shadow:0 2px 8px rgba(0,0,0,0.04);
-  transition:all 0.35s ease;
-}
-.testimonial-card:hover {
-  border-color:rgba(79,70,229,0.2);
-  transform:translateY(-5px);
-  box-shadow:0 16px 48px -8px rgba(79,70,229,0.12);
-}
-
-/* ============================================================
-   BLOG CARD
-   ============================================================ */
-.blog-card {
-  background:var(--color-surface);
-  border:1px solid var(--color-border);
-  border-radius:var(--radius-lg);
-  overflow:hidden;
-  box-shadow:0 2px 8px rgba(0,0,0,0.04);
-  transition:all 0.35s ease;
-}
-.blog-card:hover {
-  border-color:rgba(79,70,229,0.2);
-  transform:translateY(-5px);
-  box-shadow:0 16px 48px -8px rgba(79,70,229,0.12);
+.eyebrow {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+  margin-bottom: 1rem;
 }
 
 /* ============================================================
    BUTTONS
    ============================================================ */
 .btn {
-  display:inline-flex; align-items:center; justify-content:center;
-  gap:0.5rem;
-  font-family:var(--font-display);
-  font-weight:700;
-  font-size:0.875rem;
-  line-height:1;
-  border-radius:9999px;
-  padding:0.875rem 1.875rem;
-  border:none; cursor:pointer;
-  transition:all 0.3s cubic-bezier(0.16,1,0.3,1);
-  white-space:nowrap;
-  text-decoration:none;
-  letter-spacing:-0.01em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1;
+  border-radius: var(--radius-md);
+  padding: 0.8125rem 1.625rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  letter-spacing: -0.01em;
 }
-.btn:active{ transform:scale(0.97); }
+.btn:active { transform: scale(0.98); }
 
 .btn-primary {
-  background:linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-end) 100%);
-  color:#fff;
-  box-shadow:0 4px 20px -4px rgba(79,70,229,0.5);
+  background-color: var(--color-blue);
+  color: #fff;
 }
 .btn-primary:hover {
-  box-shadow:0 8px 30px -6px rgba(79,70,229,0.6);
-  transform:translateY(-2px);
+  background-color: var(--color-blue-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(37,99,235,0.35);
 }
 
 .btn-secondary {
-  background:#fff;
-  color:var(--color-text);
-  border:1.5px solid var(--color-border-strong);
-  box-shadow:0 1px 4px rgba(0,0,0,0.06);
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  border: 1.5px solid var(--color-border-dark);
 }
 .btn-secondary:hover {
-  background:var(--color-section-purple);
-  border-color:rgba(79,70,229,0.3);
-  transform:translateY(-2px);
+  background-color: var(--color-surface);
+  border-color: var(--color-ink-mid);
+  transform: translateY(-1px);
+}
+
+.btn-outline-white {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.35);
+}
+.btn-outline-white:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.6);
 }
 
 .btn-ghost {
-  background:transparent;
-  color:var(--color-accent);
-  padding:0; border-radius:0;
-  font-size:0.8125rem; font-weight:600;
+  background: transparent;
+  color: var(--color-blue);
+  padding: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: 0;
 }
-.btn-ghost:hover{ color:var(--color-accent-end); text-decoration:underline; text-underline-offset:3px; }
+.btn-ghost:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ============================================================
-   DARK SECTION BUTTONS
+   MARQUEE
    ============================================================ */
-.section-dark .btn-secondary {
-  border-color:var(--color-dark-border);
-  color:var(--color-dark-text);
-  background:transparent;
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
-.section-dark .btn-secondary:hover {
-  background:rgba(255,255,255,0.08);
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: all 0.25s ease;
+}
+.card:hover {
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 1px var(--color-blue);
+  transform: translateY(-3px);
+}
+
+.card-slate {
+  background: var(--color-slate-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: all 0.25s ease;
+}
+.card-slate:hover {
+  border-color: var(--color-blue);
+  transform: translateY(-3px);
 }
 
 /* ============================================================
-   LABELS
+   SERVICE CARD — left accent bar style
    ============================================================ */
-.label-eyebrow {
-  font-size:0.6875rem;
-  font-weight:700;
-  letter-spacing:0.12em;
-  text-transform:uppercase;
-  color:var(--color-text-muted);
+.service-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  border-left: 3px solid transparent;
+  padding: 2rem;
+  transition: all 0.25s ease;
 }
-.label-eyebrow-accent {
-  font-size:0.6875rem;
-  font-weight:700;
-  letter-spacing:0.12em;
-  text-transform:uppercase;
-  color:var(--color-accent);
+.service-card:hover {
+  border-left-color: var(--color-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.07);
 }
 
 /* ============================================================
-   ICON BOX variants
+   PRICING CARD
    ============================================================ */
-.icon-box-blue   { background:var(--color-accent-subtle); }
-.icon-box-teal   { background:var(--color-teal-subtle); }
-.icon-box-rose   { background:var(--color-rose-subtle); }
-.icon-box-amber  { background:var(--color-amber-subtle); }
-.icon-box-green  { background:var(--color-success-subtle); }
+.pricing-card {
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem;
+  transition: all 0.25s ease;
+  position: relative;
+}
+.pricing-card.featured {
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 1px var(--color-blue);
+}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq-item {
+  border-bottom: 1px solid var(--color-border);
+  padding: 1.5rem 0;
+}
+.faq-item:first-child { border-top: 1px solid var(--color-border); }
+
+/* ============================================================
+   STAT — horizontal divider style
+   ============================================================ */
+.stat-card {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.stat-card:last-child { border-bottom: none; }
+@media(min-width:768px) {
+  .stat-card {
+    padding: 0 2rem;
+    border-bottom: none;
+    border-right: 1px solid var(--color-border);
+  }
+  .stat-card:first-child { padding-left: 0; }
+  .stat-card:last-child  { border-right: none; }
+}
+
+/* ============================================================
+   DARK SECTION text helpers
+   ============================================================ */
+.section-dark h1,
+.section-dark h2,
+.section-dark h3 { color: #fff; }
+.section-dark p   { color: #94A3B8; }

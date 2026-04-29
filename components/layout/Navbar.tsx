@@ -11,57 +11,36 @@ export default function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    if (isMobileOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
+    document.body.style.overflow = isMobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [isMobileOpen]);
 
   return (
     <>
       <header
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          isScrolled ? "py-3" : "py-5"
-        )}
-        style={{
-          backgroundColor: isScrolled
-            ? "rgba(249,249,251,0.92)"
-            : "rgba(249,249,251,0.6)",
-          backdropFilter: "blur(20px) saturate(1.8)",
-          borderBottom: isScrolled
-            ? "1px solid var(--color-border)"
-            : "1px solid transparent",
-        }}
         role="banner"
+        style={{
+          position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
+          backgroundColor: isScrolled ? "rgba(255,255,255,0.96)" : "transparent",
+          borderBottom: isScrolled ? "1px solid var(--color-border)" : "1px solid transparent",
+          backdropFilter: isScrolled ? "blur(12px)" : "none",
+          transition: "all 0.3s ease",
+          padding: isScrolled ? "0.875rem 0" : "1.25rem 0",
+        }}
       >
-        <div className="container-site flex items-center justify-between">
+        <div className="container-site" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2" aria-label={`${SITE.name} — Home`}>
-            <div
-              style={{
-                width: "32px",
-                height: "32px",
-                borderRadius: "var(--radius-sm)",
-                background: "linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-end) 100%)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 4px 12px -2px rgba(96,65,232,0.35)",
-              }}
-            >
-              <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", color: "#fff", lineHeight: 1 }}>
-                N
-              </span>
+          <a href="/" aria-label={`${SITE.name} home`} style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
+            <div style={{ width: "32px", height: "32px", borderRadius: "8px", backgroundColor: "var(--color-blue)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1rem", color: "#fff", lineHeight: 1 }}>N</span>
             </div>
-            <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.1rem", color: "var(--color-text)", letterSpacing: "-0.02em" }}>
-              {SITE.name}
-            </span>
+            <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.0625rem", color: "var(--color-ink)", letterSpacing: "-0.02em" }}>{SITE.name}</span>
           </a>
 
           {/* Desktop nav */}
@@ -70,35 +49,28 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm px-4 py-2 rounded-full transition-all duration-300"
-                style={{ color: "var(--color-text-secondary)", fontWeight: 500 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "var(--color-text)";
-                  e.currentTarget.style.backgroundColor = "var(--color-surface-high)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "var(--color-text-secondary)";
-                  e.currentTarget.style.backgroundColor = "transparent";
-                }}
+                style={{ fontSize: "0.875rem", fontWeight: 500, color: "var(--color-ink-light)", padding: "0.5rem 0.875rem", borderRadius: "var(--radius-sm)", transition: "all 0.2s" }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = "var(--color-ink)"; e.currentTarget.style.backgroundColor = "var(--color-surface)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = "var(--color-ink-light)"; e.currentTarget.style.backgroundColor = "transparent"; }}
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
-          {/* CTA */}
-          <div className="hidden md:flex">
-            <Button href="/contact" variant="primary">Start a Project</Button>
+          <div className="hidden md:flex items-center gap-3">
+            <a href="/contact" style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--color-ink-light)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-ink)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-ink-light)")}
+            >
+              Contact
+            </a>
+            <Button href="/contact" variant="primary">Get a Free Audit</Button>
           </div>
 
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full"
-            style={{ color: "var(--color-text)", backgroundColor: "var(--color-surface-high)", border: "1px solid var(--color-border)" }}
-            onClick={() => setIsMobileOpen(!isMobileOpen)}
-            aria-label={isMobileOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMobileOpen}
-            aria-controls="mobile-menu"
+          <button className="md:hidden" onClick={() => setIsMobileOpen(!isMobileOpen)}
+            style={{ width: "40px", height: "40px", borderRadius: "var(--radius-sm)", border: "1px solid var(--color-border)", background: "var(--color-bg)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-ink)", cursor: "pointer" }}
+            aria-label={isMobileOpen ? "Close menu" : "Open menu"} aria-expanded={isMobileOpen}
           >
             {isMobileOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -107,61 +79,38 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <div
-        id="mobile-menu"
-        className={cn(
-          "fixed inset-0 z-40 flex flex-col transition-all duration-500",
-          isMobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        )}
-        style={{ backgroundColor: "var(--color-surface)" }}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Mobile navigation"
+        role="dialog" aria-modal="true" aria-label="Mobile navigation"
+        style={{
+          position: "fixed", inset: 0, zIndex: 40,
+          backgroundColor: "var(--color-bg)",
+          opacity: isMobileOpen ? 1 : 0,
+          pointerEvents: isMobileOpen ? "auto" : "none",
+          transition: "opacity 0.25s ease",
+          display: "flex", flexDirection: "column",
+        }}
       >
-        <div className="flex items-center justify-between px-5 py-5" style={{ borderBottom: "1px solid var(--color-border)" }}>
-          <a href="/" className="flex items-center gap-2">
-            <div style={{ width: "32px", height: "32px", borderRadius: "var(--radius-sm)", background: "linear-gradient(135deg, var(--color-accent), var(--color-accent-end))", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", color: "#fff" }}>N</span>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem 1.5rem", borderBottom: "1px solid var(--color-border)" }}>
+          <a href="/" style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
+            <div style={{ width: "32px", height: "32px", borderRadius: "8px", backgroundColor: "var(--color-blue)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1rem", color: "#fff" }}>N</span>
             </div>
-            <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.1rem", color: "var(--color-text)" }}>{SITE.name}</span>
+            <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.0625rem", color: "var(--color-ink)" }}>{SITE.name}</span>
           </a>
-          <button
-            className="flex items-center justify-center w-10 h-10 rounded-full"
-            style={{ color: "var(--color-text)", backgroundColor: "var(--color-surface-high)", border: "1px solid var(--color-border)" }}
-            onClick={() => setIsMobileOpen(false)}
-            aria-label="Close menu"
-          >
+          <button onClick={() => setIsMobileOpen(false)} style={{ width: "40px", height: "40px", borderRadius: "var(--radius-sm)", border: "1px solid var(--color-border)", background: "var(--color-bg)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-ink)", cursor: "pointer" }}>
             <X size={18} />
           </button>
         </div>
-
-        <nav className="flex flex-col flex-1 px-5 pt-4" aria-label="Mobile navigation">
-          {NAV_LINKS.map((link, i) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setIsMobileOpen(false)}
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "1.75rem",
-                fontWeight: 700,
-                color: "var(--color-text)",
-                borderBottom: "1px solid var(--color-border)",
-                padding: "1rem 0",
-                letterSpacing: "-0.02em",
-                opacity: isMobileOpen ? 1 : 0,
-                transform: isMobileOpen ? "translateY(0)" : "translateY(16px)",
-                transition: "all 0.4s ease",
-                transitionDelay: isMobileOpen ? `${i * 80}ms` : "0ms",
-              }}
-            >
+        <nav style={{ flex: 1, padding: "1.5rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+          {NAV_LINKS.map((link) => (
+            <a key={link.label} href={link.href} onClick={() => setIsMobileOpen(false)}
+              style={{ display: "block", fontFamily: "var(--font-display)", fontSize: "1.5rem", fontWeight: 700, color: "var(--color-ink)", padding: "0.875rem 0", borderBottom: "1px solid var(--color-border)", letterSpacing: "-0.02em" }}>
               {link.label}
             </a>
           ))}
         </nav>
-
-        <div className="px-5 pb-8 pt-4">
+        <div style={{ padding: "1.5rem" }}>
           <Button href="/contact" variant="primary" className="w-full justify-center" onClick={() => setIsMobileOpen(false)}>
-            Start a Project
+            Get a Free Audit
           </Button>
         </div>
       </div>
