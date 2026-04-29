@@ -1,5 +1,4 @@
 import Button from "@/components/ui/Button";
-import { ArrowRight } from "lucide-react";
 
 export default function CTABanner() {
   return (
@@ -9,43 +8,29 @@ export default function CTABanner() {
       style={{
         position: "relative",
         overflow: "hidden",
-        padding: "6rem 0",
+        padding: "7rem 0",
       }}
     >
-      {/* Background gradient */}
+      {/* Background gradient mesh */}
       <div
         aria-hidden="true"
+        className="glow-orb"
         style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "linear-gradient(135deg, rgba(37,99,235,0.15) 0%, rgba(9,9,11,0) 60%)",
-          pointerEvents: "none",
-        }}
-      />
-      {/* Border top and bottom */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          borderTop: "1px solid var(--color-surface-high)",
-          borderBottom: "1px solid var(--color-surface-high)",
-          pointerEvents: "none",
-        }}
-      />
-      {/* Decorative right blob */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          right: "-100px",
+          width: "700px",
+          height: "700px",
           top: "50%",
-          transform: "translateY(-50%)",
-          width: "500px",
-          height: "500px",
-          background:
-            "radial-gradient(circle, rgba(37,99,235,0.1) 0%, transparent 65%)",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          opacity: 0.1,
+        }}
+      />
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          borderTop: "1px solid var(--color-border)",
+          borderBottom: "1px solid var(--color-border)",
           pointerEvents: "none",
         }}
       />
@@ -59,55 +44,69 @@ export default function CTABanner() {
           flexDirection: "column",
           alignItems: "center",
           textAlign: "center",
-          gap: "2rem",
+          gap: "1.75rem",
         }}
       >
-        {/* Eyebrow */}
-        <p
-          className="text-xs font-semibold tracking-widest uppercase"
-          style={{ color: "var(--color-accent)", fontFamily: "var(--font-mono)" }}
-        >
-          Free Strategy Call
-        </p>
+        <span className="label-eyebrow-accent">Free Strategy Call</span>
 
         <h2
           id="cta-heading"
-          style={{ maxWidth: "700px", color: "var(--color-text)" }}
+          style={{
+            maxWidth: "640px",
+            color: "var(--color-text)",
+          }}
         >
-          Ready to Outrank Your Competitors?
+          Ready to outrank your{" "}
+          <span className="gradient-text">competitors</span>?
         </h2>
 
         <p
           style={{
-            maxWidth: "520px",
-            color: "var(--color-muted)",
-            fontSize: "1.1rem",
+            maxWidth: "480px",
+            color: "var(--color-text-secondary)",
+            fontSize: "1.05rem",
             lineHeight: 1.75,
           }}
         >
-          Book a free 30-minute strategy call. We will audit your current online presence and
-          show you exactly where the growth opportunities are — no commitment required.
+          Book a free 30-minute strategy call. We&apos;ll audit your current
+          presence and show you exactly where the growth opportunities are.
         </p>
 
-        <div className="flex flex-wrap gap-4 justify-center">
-          <Button href="mailto:hello@nexusdigital.agency" variant="primary" showArrow>
-            Book a Free Strategy Call
+        <div className="flex flex-wrap gap-4 justify-center" style={{ marginTop: "0.5rem" }}>
+          <Button href="/contact" variant="primary" showArrow>
+            Book a Strategy Call
           </Button>
-          <Button href="#services" variant="secondary">
-            Explore Our Services
+          <Button href="/work" variant="secondary">
+            View Our Work
           </Button>
         </div>
 
-        {/* Micro trust signals */}
+        {/* Trust signals */}
         <div
-          className="flex flex-wrap gap-6 justify-center text-xs"
-          style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)" }}
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "2rem",
+            justifyContent: "center",
+            marginTop: "1.5rem",
+          }}
         >
-          <span>No credit card required</span>
-          <span style={{ color: "var(--color-border)" }}>|</span>
-          <span>30-min call, no sales pitch</span>
-          <span style={{ color: "var(--color-border)" }}>|</span>
-          <span>Response within 2 hours</span>
+          {["No commitment required", "30-min call", "Response within 2 hrs"].map(
+            (text) => (
+              <span
+                key={text}
+                style={{
+                  fontSize: "0.6875rem",
+                  color: "var(--color-text-secondary)",
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  fontWeight: 500,
+                }}
+              >
+                {text}
+              </span>
+            )
+          )}
         </div>
       </div>
     </section>

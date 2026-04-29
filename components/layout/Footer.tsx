@@ -1,7 +1,7 @@
 "use client";
 
-import { Zap, Linkedin, Instagram, Facebook, Twitter, Mail, Phone, MapPin } from "lucide-react";
-import { SITE, SERVICES, NAV_LINKS } from "@/lib/constants";
+import { Linkedin, Instagram, Facebook, Twitter, Mail, Phone, MapPin } from "lucide-react";
+import { SITE, SERVICES } from "@/lib/constants";
 
 const SOCIAL_LINKS = [
   { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
@@ -16,39 +16,66 @@ export default function Footer() {
   return (
     <footer
       role="contentinfo"
-      style={{ backgroundColor: "var(--color-surface)", borderTop: "1px solid var(--color-surface-high)" }}
+      style={{
+        backgroundColor: "var(--color-surface)",
+        borderTop: "1px solid var(--color-border)",
+      }}
     >
       <div className="container-site" style={{ paddingTop: "5rem", paddingBottom: "3rem" }}>
         {/* Main grid */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gridTemplateColumns: "1fr",
             gap: "3rem",
             marginBottom: "4rem",
           }}
+          className="footer-grid"
         >
-          {/* Brand column */}
-          <div style={{ maxWidth: "280px" }}>
+          {/* Brand */}
+          <div style={{ maxWidth: "300px" }}>
             <a
               href="/"
-              className="flex items-center gap-2 font-bold text-xl mb-4"
+              className="flex items-center gap-2 mb-5"
               aria-label={`${SITE.name} — Home`}
-              style={{ color: "var(--color-text)" }}
             >
-              <span
-                className="flex items-center justify-center w-8 h-8 rounded-lg"
-                style={{ backgroundColor: "var(--color-accent)" }}
+              <div
+                style={{
+                  width: "28px",
+                  height: "28px",
+                  borderRadius: "var(--radius-sm)",
+                  background: "linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-end) 100%)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
-                <Zap size={16} color="#fff" strokeWidth={2.5} />
+                <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "0.875rem", color: "#fff" }}>N</span>
+              </div>
+              <span
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 700,
+                  fontSize: "1rem",
+                  color: "var(--color-text)",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                {SITE.name}
               </span>
-              {SITE.name}
             </a>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--color-muted)" }}>
-              Full-service digital marketing agency helping businesses grow faster online with
-              proven strategies and transparent results.
+            <p
+              style={{
+                fontSize: "0.875rem",
+                lineHeight: 1.7,
+                color: "var(--color-text-secondary)",
+                marginBottom: "1.5rem",
+              }}
+            >
+              Full-service digital growth agency helping ambitious businesses
+              build stronger brands and acquire customers at scale.
             </p>
-            <div className="flex items-center gap-3">
+            <div style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
               {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
@@ -56,20 +83,23 @@ export default function Footer() {
                   aria-label={label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200"
                   style={{
-                    backgroundColor: "var(--color-surface-high)",
-                    color: "var(--color-muted)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "var(--radius-sm)",
+                    color: "var(--color-text-secondary)",
+                    transition: "all 0.3s ease",
                   }}
                   onMouseEnter={(e) => {
-                    const el = e.currentTarget;
-                    el.style.backgroundColor = "var(--color-accent)";
-                    el.style.color = "#fff";
+                    e.currentTarget.style.color = "var(--color-accent)";
+                    e.currentTarget.style.backgroundColor = "var(--color-surface-high)";
                   }}
                   onMouseLeave={(e) => {
-                    const el = e.currentTarget;
-                    el.style.backgroundColor = "var(--color-surface-high)";
-                    el.style.color = "var(--color-muted)";
+                    e.currentTarget.style.color = "var(--color-text-secondary)";
+                    e.currentTarget.style.backgroundColor = "transparent";
                   }}
                 >
                   <Icon size={16} />
@@ -80,24 +110,22 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3
-              className="text-sm font-semibold mb-5 tracking-wider uppercase"
-              style={{ color: "var(--color-text)", fontFamily: "var(--font-mono)" }}
-            >
-              Services
-            </h3>
-            <ul className="flex flex-col gap-3">
+            <h3 className="label-eyebrow" style={{ marginBottom: "1.25rem" }}>Services</h3>
+            <ul style={{ display: "flex", flexDirection: "column", gap: "0.75rem", listStyle: "none" }}>
               {SERVICES.map((service) => (
                 <li key={service.id}>
                   <a
                     href={`/services/${service.id}`}
-                    className="text-sm transition-colors duration-200"
-                    style={{ color: "var(--color-muted)" }}
+                    style={{
+                      fontSize: "0.875rem",
+                      color: "var(--color-text-secondary)",
+                      transition: "color 0.3s ease",
+                    }}
                     onMouseEnter={(e) =>
-                      ((e.target as HTMLElement).style.color = "var(--color-accent)")
+                      ((e.target as HTMLElement).style.color = "var(--color-text)")
                     }
                     onMouseLeave={(e) =>
-                      ((e.target as HTMLElement).style.color = "var(--color-muted)")
+                      ((e.target as HTMLElement).style.color = "var(--color-text-secondary)")
                     }
                   >
                     {service.title}
@@ -109,31 +137,28 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h3
-              className="text-sm font-semibold mb-5 tracking-wider uppercase"
-              style={{ color: "var(--color-text)", fontFamily: "var(--font-mono)" }}
-            >
-              Company
-            </h3>
-            <ul className="flex flex-col gap-3">
+            <h3 className="label-eyebrow" style={{ marginBottom: "1.25rem" }}>Company</h3>
+            <ul style={{ display: "flex", flexDirection: "column", gap: "0.75rem", listStyle: "none" }}>
               {[
-                { label: "About Us", href: "/about" },
+                { label: "About", href: "/about" },
                 { label: "Our Work", href: "/work" },
                 { label: "Blog", href: "/blog" },
                 { label: "Contact", href: "/contact" },
-                { label: "Privacy Policy", href: "/privacy" },
-                { label: "Terms of Service", href: "/terms" },
+                { label: "Privacy", href: "/privacy" },
               ].map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm transition-colors duration-200"
-                    style={{ color: "var(--color-muted)" }}
+                    style={{
+                      fontSize: "0.875rem",
+                      color: "var(--color-text-secondary)",
+                      transition: "color 0.3s ease",
+                    }}
                     onMouseEnter={(e) =>
-                      ((e.target as HTMLElement).style.color = "var(--color-accent)")
+                      ((e.target as HTMLElement).style.color = "var(--color-text)")
                     }
                     onMouseLeave={(e) =>
-                      ((e.target as HTMLElement).style.color = "var(--color-muted)")
+                      ((e.target as HTMLElement).style.color = "var(--color-text-secondary)")
                     }
                   >
                     {link.label}
@@ -145,84 +170,92 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3
-              className="text-sm font-semibold mb-5 tracking-wider uppercase"
-              style={{ color: "var(--color-text)", fontFamily: "var(--font-mono)" }}
+            <h3 className="label-eyebrow" style={{ marginBottom: "1.25rem" }}>Get in touch</h3>
+            <address
+              style={{
+                fontStyle: "normal",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.875rem",
+              }}
             >
-              Contact
-            </h3>
-            <address className="not-italic flex flex-col gap-4">
               <a
                 href={`mailto:${SITE.email}`}
-                className="flex items-start gap-3 text-sm transition-colors duration-200"
-                style={{ color: "var(--color-muted)" }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = "var(--color-accent)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "var(--color-muted)")
-                }
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "0.625rem",
+                  fontSize: "0.875rem",
+                  color: "var(--color-text-secondary)",
+                  transition: "color 0.3s ease",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-text)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-secondary)")}
               >
-                <Mail size={16} className="mt-0.5 shrink-0" />
+                <Mail size={15} style={{ marginTop: "2px", flexShrink: 0, opacity: 0.6 }} />
                 {SITE.email}
               </a>
               <a
                 href={`tel:${SITE.phone}`}
-                className="flex items-start gap-3 text-sm transition-colors duration-200"
-                style={{ color: "var(--color-muted)" }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = "var(--color-accent)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "var(--color-muted)")
-                }
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "0.625rem",
+                  fontSize: "0.875rem",
+                  color: "var(--color-text-secondary)",
+                  transition: "color 0.3s ease",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-text)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-secondary)")}
               >
-                <Phone size={16} className="mt-0.5 shrink-0" />
+                <Phone size={15} style={{ marginTop: "2px", flexShrink: 0, opacity: 0.6 }} />
                 {SITE.phone}
               </a>
-              <p className="flex items-start gap-3 text-sm" style={{ color: "var(--color-muted)" }}>
-                <MapPin size={16} className="mt-0.5 shrink-0" />
+              <p
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "0.625rem",
+                  fontSize: "0.875rem",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                <MapPin size={15} style={{ marginTop: "2px", flexShrink: 0, opacity: 0.6 }} />
                 {SITE.address}
               </p>
             </address>
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom */}
         <div
-          className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 text-sm"
           style={{
-            borderTop: "1px solid var(--color-surface-high)",
-            color: "var(--color-muted)",
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "1rem",
+            paddingTop: "2rem",
+            borderTop: "1px solid var(--color-border)",
+            fontSize: "0.75rem",
+            color: "var(--color-text-secondary)",
           }}
         >
-          <p>
-            &copy; {year} {SITE.name}. All rights reserved.
-          </p>
-          <p className="flex items-center gap-2">
-            <span
-              className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold"
-              style={{
-                backgroundColor: "rgba(37,99,235,0.12)",
-                color: "var(--color-accent)",
-                fontFamily: "var(--font-mono)",
-              }}
-            >
-              Google Partner
-            </span>
-            <span
-              className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold"
-              style={{
-                backgroundColor: "rgba(37,99,235,0.12)",
-                color: "var(--color-accent)",
-                fontFamily: "var(--font-mono)",
-              }}
-            >
-              Meta Business Partner
-            </span>
-          </p>
+          <p>&copy; {year} {SITE.name}. All rights reserved.</p>
+          <div style={{ display: "flex", gap: "1.5rem" }}>
+            <span style={{ color: "var(--color-accent)", fontWeight: 500 }}>Google Partner</span>
+            <span style={{ color: "var(--color-accent)", fontWeight: 500 }}>Meta Partner</span>
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @media (min-width: 768px) {
+          .footer-grid {
+            grid-template-columns: 1.5fr 1fr 1fr 1fr !important;
+          }
+        }
+      `}</style>
     </footer>
   );
 }

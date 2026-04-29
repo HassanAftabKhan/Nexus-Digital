@@ -1,7 +1,6 @@
 "use client";
 
 import SectionHeading from "@/components/ui/SectionHeading";
-import Badge from "@/components/ui/Badge";
 import { CASE_STUDIES } from "@/lib/constants";
 import { ArrowRight } from "lucide-react";
 
@@ -21,131 +20,147 @@ export default function CaseStudies() {
             alignItems: "flex-end",
             justifyContent: "space-between",
             gap: "1.5rem",
-            marginBottom: "4rem",
+            marginBottom: "3.5rem",
           }}
         >
           <SectionHeading
             eyebrow="Case Studies"
-            title="Work That Speaks for Itself"
+            title="Work that speaks for itself"
             className="mb-0"
           />
-          <a
-            href="/work"
-            className="btn btn-secondary text-sm shrink-0"
-            style={{ borderRadius: "9999px" }}
-          >
-            View All Work <ArrowRight size={14} />
+          <a href="/work" className="btn btn-secondary text-sm shrink-0">
+            All case studies <ArrowRight size={14} />
           </a>
         </div>
 
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            gap: "1.5rem",
+            gridTemplateColumns: "1fr",
+            gap: "1.25rem",
           }}
+          className="case-grid"
         >
-          {CASE_STUDIES.map((study, index) => (
+          {CASE_STUDIES.map((study) => (
             <article
-              key={index}
+              key={study.slug}
               style={{
                 background: "var(--color-bg)",
                 border: "1px solid var(--color-border)",
-                borderRadius: "var(--radius-xl)",
+                borderRadius: "var(--radius-lg)",
                 padding: "2.5rem",
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.5rem",
-                transition: "border-color 0.3s ease, transform 0.3s ease",
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                gap: "2rem",
+                transition: "all 0.4s ease",
                 cursor: "pointer",
               }}
+              className="case-study-item"
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "var(--color-accent)";
+                e.currentTarget.style.borderColor = "rgba(124,92,252,0.3)";
                 e.currentTarget.style.transform = "translateY(-4px)";
+                e.currentTarget.style.boxShadow = "0 16px 40px -8px rgba(124,92,252,0.12)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = "var(--color-border)";
                 e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "none";
               }}
             >
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="muted">{study.industry}</Badge>
+              {/* Tags row */}
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
+                <span className="label-eyebrow">{study.industry}</span>
+                <span style={{ color: "var(--color-border-strong)" }}>·</span>
                 {study.tags.map((tag) => (
-                  <Badge key={tag} variant="accent">
+                  <span
+                    key={tag}
+                    style={{
+                      fontSize: "0.6875rem",
+                      color: "var(--color-text-secondary)",
+                      letterSpacing: "0.06em",
+                      textTransform: "uppercase",
+                    }}
+                  >
                     {tag}
-                  </Badge>
+                  </span>
                 ))}
               </div>
 
-              {/* Big metric */}
-              <div>
-                <p
-                  className="font-black"
-                  style={{
-                    fontSize: "clamp(3rem, 6vw, 5rem)",
-                    color: "var(--color-accent)",
-                    fontFamily: "var(--font-mono)",
-                    letterSpacing: "-0.04em",
-                    lineHeight: 1,
-                  }}
-                >
-                  {study.metric}
-                </p>
-                <p
-                  className="text-sm font-semibold mt-1"
-                  style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)" }}
-                >
-                  {study.metricLabel}
-                </p>
-              </div>
-
-              {/* Challenge and result */}
+              {/* Content */}
               <div
                 style={{
-                  borderTop: "1px solid var(--color-surface-high)",
-                  paddingTop: "1.5rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1rem",
+                  display: "grid",
+                  gridTemplateColumns: "1fr",
+                  gap: "2rem",
+                  alignItems: "center",
                 }}
+                className="case-study-content"
               >
+                {/* Metric */}
                 <div>
                   <p
-                    className="text-xs font-semibold uppercase tracking-widest mb-1"
-                    style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)" }}
+                    className="gradient-text"
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(3rem, 6vw, 5rem)",
+                      fontWeight: 700,
+                      letterSpacing: "-0.04em",
+                      lineHeight: 1,
+                    }}
                   >
-                    Challenge
+                    {study.metric}
                   </p>
-                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-muted)" }}>
-                    {study.challenge}
+                  <p
+                    style={{
+                      fontSize: "0.8125rem",
+                      color: "var(--color-text-secondary)",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    {study.metricLabel}
                   </p>
                 </div>
-                <div>
-                  <p
-                    className="text-xs font-semibold uppercase tracking-widest mb-1"
-                    style={{ color: "var(--color-success)", fontFamily: "var(--font-mono)" }}
-                  >
-                    Result
-                  </p>
-                  <p className="text-sm font-semibold leading-relaxed" style={{ color: "var(--color-text)" }}>
-                    {study.result}
-                  </p>
+
+                {/* Challenge + Result */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                  <div>
+                    <p className="label-eyebrow" style={{ marginBottom: "0.5rem" }}>Challenge</p>
+                    <p style={{ fontSize: "0.9375rem", color: "var(--color-text-secondary)", lineHeight: 1.65 }}>
+                      {study.challenge}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="label-eyebrow" style={{ marginBottom: "0.5rem", color: "var(--color-success)" }}>
+                      Result
+                    </p>
+                    <p style={{ fontSize: "0.9375rem", color: "var(--color-text)", fontWeight: 500, lineHeight: 1.65 }}>
+                      {study.result}
+                    </p>
+                  </div>
                 </div>
               </div>
 
               {/* CTA */}
               <a
                 href="/work"
-                className="btn btn-ghost inline-flex items-center gap-2 text-sm font-semibold mt-auto"
+                className="btn btn-ghost"
+                style={{ justifyContent: "flex-start", gap: "0.5rem" }}
                 aria-label={`Read ${study.industry} case study`}
               >
-                Read Case Study <ArrowRight size={15} strokeWidth={2.5} />
+                Read case study <ArrowRight size={14} strokeWidth={2} />
               </a>
             </article>
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (min-width: 768px) {
+          .case-study-content {
+            grid-template-columns: 1fr 1.5fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

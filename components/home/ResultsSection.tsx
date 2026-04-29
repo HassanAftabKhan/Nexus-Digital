@@ -1,6 +1,7 @@
+"use client";
+
 import SectionHeading from "@/components/ui/SectionHeading";
 import StatCounter from "@/components/ui/StatCounter";
-import { STATS } from "@/lib/constants";
 
 const RESULTS = [
   { value: 312, suffix: "%", label: "Average organic traffic growth", period: "within 6 months" },
@@ -15,46 +16,50 @@ export default function ResultsSection() {
       id="results"
       className="section-pad"
       aria-labelledby="results-heading"
-      style={{ position: "relative", overflow: "hidden" }}
     >
-      {/* Background accent */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          bottom: "-100px",
-          right: "-100px",
-          width: "400px",
-          height: "400px",
-          background: "radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div className="container-site" style={{ position: "relative", zIndex: 1 }}>
+      <div className="container-site">
         <SectionHeading
-          eyebrow="Proven Results"
-          title="Real Numbers. Real Clients. Real Growth."
-          subtitle="Every stat below is drawn from actual client accounts — not projections, not industry averages."
+          eyebrow="Results"
+          title="Numbers that speak for themselves"
+          subtitle="Every metric below comes from real client accounts — not projections, not industry averages."
         />
 
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: "1.5rem",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "1.25rem",
           }}
+          className="results-grid"
         >
           {RESULTS.map((result) => (
-            <div key={result.label} className="stat-card text-left">
+            <div
+              key={result.label}
+              style={{
+                padding: "2rem",
+                borderRadius: "var(--radius-lg)",
+                border: "1px solid var(--color-border)",
+                background: "var(--color-surface)",
+                transition: "all 0.35s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "rgba(124,92,252,0.25)";
+                e.currentTarget.style.transform = "translateY(-4px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "var(--color-border)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
               <p
-                className="font-black mb-1"
+                className="gradient-text"
                 style={{
-                  fontSize: "clamp(2.5rem, 4vw, 3.5rem)",
-                  color: "var(--color-accent)",
-                  fontFamily: "var(--font-mono)",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
+                  fontWeight: 700,
                   letterSpacing: "-0.03em",
                   lineHeight: 1,
+                  marginBottom: "0.75rem",
                 }}
               >
                 <StatCounter
@@ -64,18 +69,35 @@ export default function ResultsSection() {
                 />
               </p>
               <p
-                className="text-base font-semibold mb-1"
-                style={{ color: "var(--color-text)" }}
+                style={{
+                  fontSize: "0.9375rem",
+                  color: "var(--color-text)",
+                  fontWeight: 500,
+                  marginBottom: "0.25rem",
+                }}
               >
                 {result.label}
               </p>
-              <p className="text-xs" style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)" }}>
+              <p
+                style={{
+                  fontSize: "0.75rem",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
                 {result.period}
               </p>
             </div>
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (min-width: 768px) {
+          .results-grid {
+            grid-template-columns: repeat(4, 1fr) !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

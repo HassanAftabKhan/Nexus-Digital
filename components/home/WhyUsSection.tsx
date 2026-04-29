@@ -17,45 +17,70 @@ export default function WhyUsSection() {
       id="about"
       className="section-pad"
       aria-labelledby="why-us-heading"
-      style={{ backgroundColor: "var(--color-surface)" }}
+      style={{ position: "relative", overflow: "hidden" }}
     >
-      <div className="container-site">
+      {/* Background glow */}
+      <div
+        aria-hidden="true"
+        className="glow-orb"
+        style={{
+          width: "500px",
+          height: "500px",
+          bottom: "-10%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          opacity: 0.08,
+        }}
+      />
+
+      <div className="container-site" style={{ position: "relative", zIndex: 1 }}>
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "1fr",
             gap: "4rem",
-            alignItems: "center",
+            alignItems: "start",
           }}
           className="why-us-grid"
         >
-          {/* Left — Heading + statement */}
+          {/* Left */}
           <div>
             <SectionHeading
-              eyebrow="Why Choose Us"
-              title="We Treat Your Budget Like It Is Our Own"
-              subtitle="Most agencies charge more and deliver less. We built our agency around a different promise — complete transparency, measurable outcomes, and a team that cares about your growth as much as you do."
-              className="mb-8"
+              eyebrow="Why Nexus"
+              title="We treat your budget like it's our own"
+              subtitle="Most agencies charge more and deliver less. We built ours around complete transparency, measurable outcomes, and genuine care for your growth."
+              className="mb-10"
             />
 
-            <div className="flex flex-col gap-1">
+            <div style={{ display: "flex", flexDirection: "column" }}>
               {[
-                { number: "500+", label: "Clients Served" },
-                { number: "98%", label: "Retention Rate" },
-                { number: "$40M+", label: "Client Revenue Generated" },
+                { number: "500+", label: "Clients served" },
+                { number: "98%", label: "Retention rate" },
+                { number: "$40M+", label: "Client revenue generated" },
               ].map((item) => (
                 <div
                   key={item.label}
-                  className="flex items-center gap-4 py-4"
-                  style={{ borderBottom: "1px solid var(--color-surface-high)" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "baseline",
+                    gap: "1.25rem",
+                    padding: "1.25rem 0",
+                    borderBottom: "1px solid var(--color-border)",
+                  }}
                 >
                   <span
-                    className="text-2xl font-black"
-                    style={{ color: "var(--color-accent)", fontFamily: "var(--font-mono)" }}
+                    className="gradient-text"
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "1.75rem",
+                      fontWeight: 700,
+                      letterSpacing: "-0.02em",
+                      minWidth: "80px",
+                    }}
                   >
                     {item.number}
                   </span>
-                  <span className="text-sm" style={{ color: "var(--color-muted)" }}>
+                  <span style={{ fontSize: "0.875rem", color: "var(--color-text-secondary)" }}>
                     {item.label}
                   </span>
                 </div>
@@ -63,13 +88,14 @@ export default function WhyUsSection() {
             </div>
           </div>
 
-          {/* Right — Feature points */}
+          {/* Right — features */}
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "1.25rem",
+              gridTemplateColumns: "1fr",
+              gap: "1rem",
             }}
+            className="why-us-features"
           >
             {WHY_US_POINTS.map((point) => {
               const Icon = ICON_MAP[point.icon] ?? Award;
@@ -77,34 +103,59 @@ export default function WhyUsSection() {
                 <div
                   key={point.title}
                   style={{
-                    background: "var(--color-bg)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "var(--radius-md)",
+                    display: "flex",
+                    gap: "1.25rem",
+                    alignItems: "flex-start",
                     padding: "1.5rem",
-                    transition: "border-color 0.3s ease",
+                    borderRadius: "var(--radius-md)",
+                    border: "1px solid var(--color-border)",
+                    background: "var(--color-surface)",
+                    transition: "all 0.35s ease",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.borderColor = "var(--color-accent)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.borderColor = "var(--color-border)")
-                  }
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "rgba(124,92,252,0.3)";
+                    e.currentTarget.style.transform = "translateX(4px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "var(--color-border)";
+                    e.currentTarget.style.transform = "translateX(0)";
+                  }}
                 >
                   <div
-                    className="flex items-center justify-center w-10 h-10 rounded-xl mb-4"
-                    style={{ backgroundColor: "rgba(37,99,235,0.1)" }}
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "var(--radius-sm)",
+                      background: "var(--color-accent-subtle)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
                   >
-                    <Icon size={20} style={{ color: "var(--color-accent)" }} strokeWidth={1.75} />
+                    <Icon size={18} style={{ color: "var(--color-accent)" }} strokeWidth={1.75} />
                   </div>
-                  <h3
-                    className="text-sm font-bold mb-2 leading-snug"
-                    style={{ color: "var(--color-text)" }}
-                  >
-                    {point.title}
-                  </h3>
-                  <p className="text-xs leading-relaxed" style={{ color: "var(--color-muted)" }}>
-                    {point.description}
-                  </p>
+                  <div>
+                    <h3
+                      style={{
+                        color: "var(--color-text)",
+                        marginBottom: "0.375rem",
+                        fontSize: "1rem",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {point.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: "0.8125rem",
+                        color: "var(--color-text-secondary)",
+                        lineHeight: 1.65,
+                      }}
+                    >
+                      {point.description}
+                    </p>
+                  </div>
                 </div>
               );
             })}

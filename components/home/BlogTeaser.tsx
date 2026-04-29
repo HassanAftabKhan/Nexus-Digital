@@ -1,9 +1,9 @@
 "use client";
 
 import SectionHeading from "@/components/ui/SectionHeading";
-import Badge from "@/components/ui/Badge";
 import { BLOG_POSTS } from "@/lib/constants";
 import { ArrowRight, Clock } from "lucide-react";
+import Badge from "@/components/ui/Badge";
 
 export default function BlogTeaser() {
   return (
@@ -11,6 +11,7 @@ export default function BlogTeaser() {
       id="blog"
       className="section-pad"
       aria-labelledby="blog-heading"
+      style={{ backgroundColor: "var(--color-surface)" }}
     >
       <div className="container-site">
         <div
@@ -20,61 +21,57 @@ export default function BlogTeaser() {
             alignItems: "flex-end",
             justifyContent: "space-between",
             gap: "1.5rem",
-            marginBottom: "4rem",
+            marginBottom: "3.5rem",
           }}
         >
           <SectionHeading
-            eyebrow="From Our Blog"
-            title="Insights That Drive Growth"
+            eyebrow="Insights"
+            title="Latest from the blog"
             className="mb-0"
           />
-          <a
-            href="/blog"
-            className="btn btn-secondary text-sm shrink-0"
-            style={{ borderRadius: "9999px" }}
-          >
-            View All Posts <ArrowRight size={14} />
+          <a href="/blog" className="btn btn-secondary text-sm shrink-0">
+            All articles <ArrowRight size={14} />
           </a>
         </div>
 
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "1.5rem",
+            gridTemplateColumns: "1fr",
+            gap: "1.25rem",
           }}
+          className="blog-grid"
         >
           {BLOG_POSTS.map((post) => (
             <article key={post.slug} className="blog-card">
-              {/* Category color band */}
-              <div
-                style={{
-                  height: "4px",
-                  backgroundColor: "var(--color-accent)",
-                  opacity: 0.7,
-                }}
-                aria-hidden="true"
-              />
-
-              <div style={{ padding: "1.75rem" }}>
-                <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+              <div style={{ padding: "2rem" }}>
+                {/* Category + Read time */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.75rem",
+                    marginBottom: "1.25rem",
+                  }}
+                >
                   <Badge variant="accent">{post.category}</Badge>
                   <span
-                    className="flex items-center gap-1 text-xs"
-                    style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)" }}
+                    className="flex items-center gap-1"
+                    style={{
+                      fontSize: "0.6875rem",
+                      color: "var(--color-text-secondary)",
+                    }}
                   >
-                    <Clock size={12} />
+                    <Clock size={11} />
                     {post.readTime}
                   </span>
                 </div>
 
-                <h3
-                  className="text-lg font-bold leading-snug mb-3"
-                  style={{ color: "var(--color-text)" }}
-                >
+                {/* Title */}
+                <h3 style={{ marginBottom: "0.75rem" }}>
                   <a
                     href={`/blog/${post.slug}`}
-                    style={{ color: "inherit" }}
+                    style={{ color: "var(--color-text)", transition: "color 0.3s ease" }}
                     onMouseEnter={(e) =>
                       ((e.target as HTMLElement).style.color = "var(--color-accent)")
                     }
@@ -86,27 +83,38 @@ export default function BlogTeaser() {
                   </a>
                 </h3>
 
+                {/* Excerpt */}
                 <p
-                  className="text-sm leading-relaxed mb-5"
-                  style={{ color: "var(--color-muted)" }}
+                  style={{
+                    fontSize: "0.9375rem",
+                    color: "var(--color-text-secondary)",
+                    lineHeight: 1.7,
+                    marginBottom: "1.5rem",
+                  }}
                 >
                   {post.excerpt}
                 </p>
 
+                {/* Bottom */}
                 <div
-                  className="flex items-center justify-between flex-wrap gap-2"
-                  style={{ paddingTop: "1rem", borderTop: "1px solid var(--color-surface-high)" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    paddingTop: "1rem",
+                    borderTop: "1px solid var(--color-border)",
+                  }}
                 >
                   <time
                     dateTime={post.date}
-                    className="text-xs"
-                    style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)" }}
+                    style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)" }}
                   >
                     {post.date}
                   </time>
                   <a
                     href={`/blog/${post.slug}`}
-                    className="btn btn-ghost text-xs inline-flex items-center gap-1"
+                    className="btn btn-ghost"
+                    style={{ gap: "0.35rem" }}
                     aria-label={`Read: ${post.title}`}
                   >
                     Read <ArrowRight size={12} />
@@ -117,6 +125,14 @@ export default function BlogTeaser() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (min-width: 768px) {
+          .blog-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

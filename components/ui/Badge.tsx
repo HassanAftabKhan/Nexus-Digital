@@ -10,17 +10,18 @@ export default function Badge({ children, variant = "accent", className }: Badge
   return (
     <span
       className={cn(
-        "inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase",
+        "inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium",
         className
       )}
       style={{
         backgroundColor:
           variant === "accent"
-            ? "rgba(37, 99, 235, 0.15)"
-            : "rgba(161, 161, 170, 0.1)",
-        color: variant === "accent" ? "var(--color-accent)" : "var(--color-muted)",
-        border: `1px solid ${variant === "accent" ? "rgba(37, 99, 235, 0.3)" : "rgba(161, 161, 170, 0.2)"}`,
-        fontFamily: "var(--font-mono)",
+            ? "var(--color-accent-subtle)"
+            : "rgba(139, 139, 158, 0.08)",
+        color: variant === "accent" ? "var(--color-accent)" : "var(--color-text-secondary)",
+        border: `1px solid ${variant === "accent" ? "rgba(124, 92, 252, 0.2)" : "rgba(139, 139, 158, 0.12)"}`,
+        letterSpacing: "0.02em",
+        fontSize: "0.6875rem",
       }}
     >
       {children}

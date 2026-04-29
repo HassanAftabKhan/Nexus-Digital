@@ -1,55 +1,49 @@
 import { CLIENTS } from "@/lib/constants";
 
 export default function LogoBar() {
-  // Duplicate the array so the marquee loops seamlessly
   const doubled = [...CLIENTS, ...CLIENTS];
 
   return (
     <section
       aria-label="Clients and partners"
       style={{
-        borderTop: "1px solid var(--color-surface-high)",
-        borderBottom: "1px solid var(--color-surface-high)",
-        backgroundColor: "var(--color-surface)",
-        padding: "2rem 0",
+        borderTop: "1px solid var(--color-border)",
+        borderBottom: "1px solid var(--color-border)",
+        padding: "2.5rem 0",
         overflow: "hidden",
+        backgroundColor: "var(--color-surface)",
       }}
     >
-      <div className="container-site mb-4 text-center">
-        <p
-          className="text-xs font-semibold tracking-widest uppercase"
-          style={{ color: "var(--color-muted)", fontFamily: "var(--font-mono)" }}
-        >
-          Trusted by brands that demand results
+      <div className="container-site mb-5">
+        <p className="label-eyebrow" style={{ textAlign: "center" }}>
+          Trusted by forward-thinking companies
         </p>
       </div>
 
-      {/* Marquee overflow container */}
       <div
         style={{ overflow: "hidden", position: "relative" }}
         aria-hidden="true"
       >
-        {/* Left fade */}
+        {/* Edge fades */}
         <div
           style={{
             position: "absolute",
             left: 0,
             top: 0,
             bottom: 0,
-            width: "120px",
+            width: "100px",
             background: "linear-gradient(90deg, var(--color-surface), transparent)",
             zIndex: 2,
             pointerEvents: "none",
           }}
         />
-        {/* Right fade */}
         <div
           style={{
             position: "absolute",
             right: 0,
             top: 0,
             bottom: 0,
-            width: "120px",
+            width: "100px",
             background: "linear-gradient(-90deg, var(--color-surface), transparent)",
             zIndex: 2,
             pointerEvents: "none",
@@ -64,14 +58,20 @@ export default function LogoBar() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                padding: "0 3rem",
+                padding: "0 2.5rem",
                 whiteSpace: "nowrap",
                 minWidth: "max-content",
               }}
             >
               <span
-                className="text-lg font-bold tracking-tight"
-                style={{ color: "var(--color-surface-high)", fontSize: "1.1rem" }}
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "0.9375rem",
+                  fontWeight: 600,
+                  color: "var(--color-text-secondary)",
+                  opacity: 0.45,
+                  letterSpacing: "-0.01em",
+                }}
               >
                 {client}
               </span>
