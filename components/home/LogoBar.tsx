@@ -11,7 +11,7 @@ export default function LogoBar() {
         borderBottom: "1px solid var(--color-border)",
         padding: "2.5rem 0",
         overflow: "hidden",
-        backgroundColor: "var(--color-surface)",
+        backgroundColor: "var(--color-surface-high)",
       }}
     >
       <div className="container-site mb-5">
@@ -20,59 +20,18 @@ export default function LogoBar() {
         </p>
       </div>
 
-      <div
-        style={{ overflow: "hidden", position: "relative" }}
-        aria-hidden="true"
-      >
+      <div style={{ overflow: "hidden", position: "relative" }} aria-hidden="true">
         {/* Edge fades */}
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            bottom: 0,
-            width: "100px",
-            background: "linear-gradient(90deg, var(--color-surface), transparent)",
-            zIndex: 2,
-            pointerEvents: "none",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            right: 0,
-            top: 0,
-            bottom: 0,
-            width: "100px",
-            background: "linear-gradient(-90deg, var(--color-surface), transparent)",
-            zIndex: 2,
-            pointerEvents: "none",
-          }}
-        />
+        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "100px", background: "linear-gradient(90deg, var(--color-surface-high), transparent)", zIndex: 2, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "100px", background: "linear-gradient(-90deg, var(--color-surface-high), transparent)", zIndex: 2, pointerEvents: "none" }} />
 
         <div className="marquee-track">
           {doubled.map((client, i) => (
             <div
               key={`${client}-${i}`}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "0 2.5rem",
-                whiteSpace: "nowrap",
-                minWidth: "max-content",
-              }}
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "0 2.5rem", whiteSpace: "nowrap", minWidth: "max-content" }}
             >
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "0.9375rem",
-                  fontWeight: 600,
-                  color: "var(--color-text-secondary)",
-                  opacity: 0.45,
-                  letterSpacing: "-0.01em",
-                }}
-              >
+              <span style={{ fontFamily: "var(--font-display)", fontSize: "0.9375rem", fontWeight: 600, color: "var(--color-text-secondary)", opacity: 0.6, letterSpacing: "-0.01em" }}>
                 {client}
               </span>
             </div>
