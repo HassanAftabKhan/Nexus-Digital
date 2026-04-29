@@ -1,28 +1,29 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { STATS } from "@/lib/constants";
 import StatCounter from "@/components/ui/StatCounter";
 
-const ROTATING_WORDS = ["Growth", "Dominance", "Revenue", "Authority", "Results"];
+const WORDS = [
+  { text: "Revenue",   color: "#4F46E5" },
+  { text: "Traffic",   color: "#0EA5E9" },
+  { text: "Authority", color: "#7C3AED" },
+  { text: "Leads",     color: "#10B981" },
+  { text: "Growth",    color: "#F43F5E" },
+];
 
 export default function HeroSection() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [wordIndex, setWordIndex] = useState(0);
+  const [visible, setVisible] = useState(false);
+  const [wordIdx, setWordIdx] = useState(0);
 
+  useEffect(() => { setTimeout(() => setVisible(true), 100); }, []);
   useEffect(() => {
-    const t = setTimeout(() => setIsVisible(true), 100);
-    return () => clearTimeout(t);
+    const t = setInterval(() => setWordIdx((p) => (p + 1) % WORDS.length), 2400);
+    return () => clearInterval(t);
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWordIndex((p) => (p + 1) % ROTATING_WORDS.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
+  const word = WORDS[wordIdx];
 
   return (
     <section
@@ -34,77 +35,43 @@ export default function HeroSection() {
         flexDirection: "column",
         justifyContent: "center",
         position: "relative",
+        overflow: "hidden",
         paddingTop: "8rem",
         paddingBottom: "4rem",
-        overflow: "hidden",
-        backgroundColor: "var(--color-bg)",
+        background: "linear-gradient(145deg, #FFFFFF 0%, #F5F3FF 40%, #EFF6FF 70%, #F0FDFA 100%)",
       }}
     >
-      {/* Subtle soft glow — light version */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          top: "-15%",
-          left: "-10%",
-          width: "60%",
-          height: "70%",
-          background: "radial-gradient(ellipse, rgba(96,65,232,0.07) 0%, transparent 65%)",
-          pointerEvents: "none",
-          borderRadius: "50%",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          bottom: "0%",
-          right: "-5%",
-          width: "40%",
-          height: "50%",
-          background: "radial-gradient(ellipse, rgba(59,130,246,0.05) 0%, transparent 65%)",
-          pointerEvents: "none",
-          borderRadius: "50%",
-        }}
-      />
+      {/* Decorative blobs — light & colorful */}
+      <div aria-hidden="true" style={{ position:"absolute", top:"-8%", right:"-5%", width:"520px", height:"520px", borderRadius:"50%", background:"radial-gradient(ellipse, rgba(79,70,229,0.12) 0%, transparent 65%)", pointerEvents:"none" }} />
+      <div aria-hidden="true" style={{ position:"absolute", bottom:"-5%", left:"-5%", width:"400px", height:"400px", borderRadius:"50%", background:"radial-gradient(ellipse, rgba(14,165,233,0.1) 0%, transparent 65%)", pointerEvents:"none" }} />
+      <div aria-hidden="true" style={{ position:"absolute", top:"40%", left:"55%", width:"300px", height:"300px", borderRadius:"50%", background:"radial-gradient(ellipse, rgba(16,185,129,0.08) 0%, transparent 65%)", pointerEvents:"none" }} />
 
-      {/* Dot grid */}
-      <div
-        aria-hidden="true"
-        className="bg-dots"
-        style={{ position: "absolute", inset: 0, opacity: 0.6, pointerEvents: "none" }}
-      />
+      {/* Grid lines overlay */}
+      <div aria-hidden="true" style={{ position:"absolute", inset:0, backgroundImage:"linear-gradient(rgba(79,70,229,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(79,70,229,0.04) 1px, transparent 1px)", backgroundSize:"48px 48px", pointerEvents:"none" }} />
 
-      <div className="container-site" style={{ position: "relative", zIndex: 1 }}>
-        {/* Eyebrow pill */}
+      <div className="container-site" style={{ position:"relative", zIndex:1 }}>
+
+        {/* Badge */}
         <div
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.625rem",
-            padding: "0.5rem 1rem 0.5rem 0.625rem",
-            borderRadius: "9999px",
-            border: "1px solid var(--color-border-strong)",
-            backgroundColor: "var(--color-surface)",
-            marginBottom: "2.5rem",
-            boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(12px)",
-            transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)",
+            display:"inline-flex", alignItems:"center", gap:"0.625rem",
+            padding:"0.4rem 1rem 0.4rem 0.5rem",
+            borderRadius:"9999px",
+            background:"linear-gradient(135deg, rgba(79,70,229,0.08), rgba(124,58,237,0.08))",
+            border:"1px solid rgba(79,70,229,0.18)",
+            marginBottom:"2rem",
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(12px)",
+            transition:"all 0.8s cubic-bezier(0.16,1,0.3,1)",
           }}
         >
-          <span
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: "linear-gradient(135deg, var(--color-accent), var(--color-accent-end))",
-              display: "block",
-              boxShadow: "0 0 8px rgba(96,65,232,0.5)",
-            }}
-          />
-          <span style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--color-text-secondary)", letterSpacing: "0.02em" }}>
-            Google &amp; Meta Certified Agency
+          <div style={{ display:"flex", gap:"3px" }}>
+            {["#4F46E5","#10B981","#F59E0B"].map((c) => (
+              <span key={c} style={{ width:"6px", height:"6px", borderRadius:"50%", backgroundColor:c, display:"block" }} />
+            ))}
+          </div>
+          <span style={{ fontSize:"0.75rem", fontWeight:600, color:"var(--color-accent)" }}>
+            Google &amp; Meta Certified · 500+ Brands Grown
           </span>
         </div>
 
@@ -112,98 +79,107 @@ export default function HeroSection() {
         <h1
           id="hero-heading"
           style={{
-            maxWidth: "820px",
-            marginBottom: "2rem",
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(24px)",
-            transition: "all 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s",
+            maxWidth:"880px",
+            marginBottom:"1.5rem",
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(24px)",
+            transition:"all 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s",
           }}
         >
-          We engineer{" "}
-          <span className="gradient-text">
-            digital{" "}
-            <span
-              key={wordIndex}
-              style={{ display: "inline-block", animation: "wordFade 0.5s ease forwards" }}
-            >
-              {ROTATING_WORDS[wordIndex]}
-            </span>
+          Your brand deserves{" "}
+          <br className="hidden md:block" />
+          more{" "}
+          <span
+            key={wordIdx}
+            style={{
+              color: word.color,
+              display:"inline-block",
+              animation:"wordFade 0.45s ease forwards",
+            }}
+          >
+            {word.text}
           </span>
         </h1>
 
         {/* Subheadline */}
         <p
           style={{
-            fontSize: "1.15rem",
-            maxWidth: "520px",
-            marginBottom: "2.5rem",
-            lineHeight: 1.7,
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s",
+            fontSize:"1.2rem",
+            maxWidth:"560px",
+            marginBottom:"2.5rem",
+            lineHeight:1.7,
+            color:"var(--color-text-secondary)",
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(20px)",
+            transition:"all 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s",
           }}
         >
-          Strategy, design, and performance marketing for ambitious brands.
-          We turn companies into category leaders.
+          Nexus Digital builds bold digital presences — from stunning websites to ROI-obsessed ad campaigns — that turn browsers into buyers.
         </p>
 
         {/* CTAs */}
         <div
           className="flex flex-wrap gap-4 items-center"
           style={{
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s",
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(20px)",
+            transition:"all 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s",
           }}
         >
-          <Button href="/contact" variant="primary" showArrow>Start a Project</Button>
-          <Button href="/work" variant="secondary">View Our Work</Button>
+          <Button href="/contact" variant="primary" showArrow>Get a Free Strategy Call</Button>
+          <Button href="/work" variant="secondary">See Our Work</Button>
+        </div>
+
+        {/* Trust logos row */}
+        <div
+          style={{
+            display:"flex", flexWrap:"wrap", gap:"1rem", alignItems:"center",
+            marginTop:"2.5rem",
+            opacity: visible ? 1 : 0,
+            transition:"all 0.9s cubic-bezier(0.16,1,0.3,1) 0.4s",
+          }}
+        >
+          <span style={{ fontSize:"0.6875rem", color:"var(--color-text-muted)", letterSpacing:"0.06em", textTransform:"uppercase" }}>Trusted by:</span>
+          {["Google Partner","Meta Partner","HubSpot Certified","Shopify Experts"].map((l) => (
+            <span key={l} style={{ padding:"0.375rem 0.875rem", borderRadius:"9999px", border:"1px solid var(--color-border-strong)", fontSize:"0.6875rem", fontWeight:600, color:"var(--color-text-secondary)", background:"rgba(255,255,255,0.7)" }}>{l}</span>
+          ))}
         </div>
 
         {/* Stats */}
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2,1fr)",
-            marginTop: "5rem",
-            paddingTop: "2.5rem",
-            borderTop: "1px solid var(--color-border)",
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s",
+            display:"grid", gridTemplateColumns:"repeat(2,1fr)",
+            gap:"0",
+            marginTop:"4rem",
+            paddingTop:"2.5rem",
+            borderTop:"1px solid rgba(79,70,229,0.12)",
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(20px)",
+            transition:"all 0.9s cubic-bezier(0.16,1,0.3,1) 0.55s",
           }}
           className="hero-stats-grid"
         >
-          {STATS.map((stat) => (
-            <div key={stat.label} className="stat-card">
-              <p
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(2rem,4vw,2.75rem)",
-                  color: "var(--color-text)",
-                  letterSpacing: "-0.03em",
-                  lineHeight: 1,
-                  marginBottom: "0.5rem",
-                  fontWeight: 700,
-                }}
-              >
-                <StatCounter value={stat.value} suffix={stat.suffix} decimals={stat.value % 1 !== 0 ? 1 : 0} />
-              </p>
-              <p style={{ fontSize: "0.8125rem", color: "var(--color-text-secondary)", fontWeight: 400 }}>
-                {stat.label}
-              </p>
-            </div>
-          ))}
+          {STATS.map((stat, i) => {
+            const colors = ["#4F46E5","#10B981","#F59E0B","#F43F5E"];
+            return (
+              <div key={stat.label} className="stat-card">
+                <p style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2rem,4vw,2.75rem)", color: colors[i % colors.length], letterSpacing:"-0.03em", lineHeight:1, marginBottom:"0.4rem", fontWeight:800 }}>
+                  <StatCounter value={stat.value} suffix={stat.suffix} decimals={stat.value % 1 !== 0 ? 1 : 0} />
+                </p>
+                <p style={{ fontSize:"0.8125rem", color:"var(--color-text-secondary)" }}>{stat.label}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
 
       <style>{`
         @keyframes wordFade {
-          from { opacity:0; transform:translateY(12px); }
+          from { opacity:0; transform:translateY(10px); }
           to   { opacity:1; transform:translateY(0); }
         }
-        @media (min-width:768px) {
-          .hero-stats-grid { grid-template-columns: repeat(4,1fr) !important; }
+        @media(min-width:768px){
+          .hero-stats-grid { grid-template-columns:repeat(4,1fr) !important; }
         }
       `}</style>
     </section>

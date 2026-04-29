@@ -1,53 +1,45 @@
 "use client";
 
-import SectionHeading from "@/components/ui/SectionHeading";
 import StatCounter from "@/components/ui/StatCounter";
 
 const RESULTS = [
-  { value: 312, suffix: "%", label: "Average organic traffic growth", period: "within 6 months" },
-  { value: 2.8,  suffix: "x",  label: "Return on ad spend",          period: "across all clients" },
-  { value: 98,   suffix: "%",  label: "Client retention rate",        period: "year-on-year" },
-  { value: 500,  suffix: "+",  label: "Businesses scaled",            period: "since 2020" },
+  { value:312, suffix:"%",  label:"Average traffic growth",      period:"In under 6 months",    color:"#4F46E5", bg:"rgba(79,70,229,0.06)",   border:"rgba(79,70,229,0.15)"  },
+  { value:2.8, suffix:"x",  label:"Average ROAS on paid ads",    period:"Across all ad accounts", color:"#0EA5E9", bg:"rgba(14,165,233,0.06)",  border:"rgba(14,165,233,0.15)" },
+  { value:98,  suffix:"%",  label:"Client retention rate",       period:"Year over year",         color:"#10B981", bg:"rgba(16,185,129,0.06)",  border:"rgba(16,185,129,0.15)" },
+  { value:500, suffix:"+",  label:"Brands we've grown",          period:"Since our founding",     color:"#F43F5E", bg:"rgba(244,63,94,0.06)",   border:"rgba(244,63,94,0.15)"  },
 ];
 
 export default function ResultsSection() {
   return (
-    <section id="results" className="section-pad" aria-labelledby="results-heading" style={{ backgroundColor: "var(--color-bg)" }}>
+    <section id="results" className="section-pad section-teal" aria-labelledby="results-heading">
       <div className="container-site">
-        <SectionHeading
-          eyebrow="Results"
-          title="Numbers that speak for themselves"
-          subtitle="Every metric below comes from real client accounts — not projections, not industry averages."
-        />
+        <div style={{ textAlign:"center", maxWidth:"640px", margin:"0 auto 4rem" }}>
+          <span className="label-eyebrow-accent" style={{ display:"block", marginBottom:"1rem" }}>Real Results</span>
+          <h2>The numbers don't <span style={{ color:"#10B981" }}>lie</span></h2>
+          <p style={{ marginTop:"1rem", fontSize:"1.05rem" }}>
+            These aren't vanity metrics. Every figure comes from real client accounts, verified and tracked.
+          </p>
+        </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "1.25rem" }} className="results-grid">
-          {RESULTS.map((result) => (
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:"1.25rem" }} className="results-grid">
+          {RESULTS.map((r) => (
             <div
-              key={result.label}
-              style={{ padding: "2rem", borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", boxShadow: "0 1px 3px rgba(0,0,0,0.04)", transition: "all 0.35s ease" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(96,65,232,0.22)";
-                e.currentTarget.style.transform = "translateY(-4px)";
-                e.currentTarget.style.boxShadow = "0 12px 32px -8px rgba(96,65,232,0.1)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "var(--color-border)";
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.04)";
-              }}
+              key={r.label}
+              style={{ padding:"2rem", borderRadius:"22px", border:`1px solid ${r.border}`, background:r.bg, transition:"all 0.35s ease" }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform="translateY(-5px)"; e.currentTarget.style.boxShadow=`0 16px 40px -8px ${r.border}`; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform="translateY(0)"; e.currentTarget.style.boxShadow="none"; }}
             >
-              <p className="gradient-text" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.5rem,5vw,3.5rem)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: "0.75rem" }}>
-                <StatCounter value={result.value} suffix={result.suffix} decimals={result.value % 1 !== 0 ? 1 : 0} />
+              <p style={{ fontFamily:"var(--font-display)", fontSize:"clamp(2.5rem,5vw,3.75rem)", fontWeight:800, color:r.color, letterSpacing:"-0.04em", lineHeight:1, marginBottom:"0.75rem" }}>
+                <StatCounter value={r.value} suffix={r.suffix} decimals={r.value % 1 !== 0 ? 1 : 0} />
               </p>
-              <p style={{ fontSize: "0.9375rem", color: "var(--color-text)", fontWeight: 500, marginBottom: "0.25rem" }}>{result.label}</p>
-              <p style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)" }}>{result.period}</p>
+              <p style={{ fontSize:"1rem", color:"var(--color-text)", fontWeight:600, marginBottom:"0.25rem" }}>{r.label}</p>
+              <p style={{ fontSize:"0.75rem", color:"var(--color-text-secondary)" }}>{r.period}</p>
             </div>
           ))}
         </div>
       </div>
-
       <style>{`
-        @media (min-width:768px) { .results-grid { grid-template-columns: repeat(4,1fr) !important; } }
+        @media(min-width:768px){ .results-grid{ grid-template-columns:repeat(4,1fr) !important; } }
       `}</style>
     </section>
   );
